@@ -4,8 +4,11 @@ import {
   Get,
   Post,
   UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { randomUUID } from 'node:crypto';
 import { ImageMetadataService } from 'src/domain/port/input/image-metadata.service';
 import { ImageUploadService } from 'src/domain/port/input/image-upload.service';
 
@@ -17,6 +20,7 @@ export class RestfulImageUploadController {
   ) {}
 
   @Post('/upload')
+  @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -30,12 +34,13 @@ export class RestfulImageUploadController {
     },
   })
   async upload(@UploadedFile() file: Express.Multer.File) {
-    if (file!) {
+    if (!file) {
       throw new BadRequestException('No file uploaded');
     }
 
     try {
-      const id = await this.imageMetadataService.createMetadata();
+      // const id = await this.imageMetadataService.createMetadata();
+      const id = randomUUID()
       const publicUrl = await this.imageUploadService.upload(file, id);
       await this.imageMetadataService.createVersion(id, publicUrl);
 
