@@ -2,22 +2,23 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IImageMetadataDb } from '../output/image-metadata-db.repository';
 
 @Injectable()
-export class ImageMetadataServie {
+export class ImageMetadataService {
   constructor (
     @Inject("IImageMetadataDb")
     private imageMetadataDb: IImageMetadataDb
   ) {}
 
   async createMetadata() {
-    const res = await this.imageMetadataDb.createMetadata()
-    return res.id
+    // const res = await this.imageMetadataDb.createMetadata()
+    // return res.id
+    return "newid"
   } 
 
   async createVersion(id: string, publicUrl: string) {
-    const res = await this.imageMetadataDb.createNewVersion(
-      id,
-      publicUrl
-    )
+    // const res = await this.imageMetadataDb.createNewVersion(
+    //   id,
+    //   publicUrl
+    // )
   }
 
   async updateVersionActive(id: string, versionIndex: number) {

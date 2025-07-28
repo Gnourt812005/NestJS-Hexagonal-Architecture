@@ -8,18 +8,19 @@ export class ImageUploadService {
     private imageStorage: IImageStorage
   ) {}
 
-  async upload(file: Express.Multer.File, fileName: string) {
-    const res = await this.imageStorage.upload(file, fileName)
-    return res.url
+  async upload(file: Express.Multer.File, fileName: string): Promise<string>{
+    // const res = await this.imageStorage.upload(file, fileName)
+    // return res.url
+    return "abc.com"
   }
   
-  async getUrl(key: string) {
+  async getUrl(key: string): Promise<string> {
     const res = await this.imageStorage.getUrl(key)
     return res.url 
   }
   
-  async remove(key: string) {
-    const res = await this.remove(key)
+  async remove(key: string): Promise<boolean> {
+    const res = await this.imageStorage.remove(key)
     return res.status
   }
 }
