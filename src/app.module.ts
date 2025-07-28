@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ImageModule } from './image/image.module';
+import { DomainModule } from './domain/domain.module';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { RestfulImageUploadModule } from './adapters/input/restful-image-upload/restful-image-upload.module';
 
 @Module({
-  imports: [ImageModule],
+  imports: [DomainModule, InfrastructureModule, RestfulImageUploadModule],
   controllers: [AppController],
   providers: [AppService],
 })
