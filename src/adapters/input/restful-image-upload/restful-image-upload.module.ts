@@ -4,6 +4,6 @@ import { RestfulImageUploadController } from './restful-image-upload.controller'
 
 @Module({
   imports: [DomainModule],
-  controllers: [RestfulImageUploadController]
+  controllers: [RestfulImageUploadController],
 })
 export class RestfulImageUploadModule {}

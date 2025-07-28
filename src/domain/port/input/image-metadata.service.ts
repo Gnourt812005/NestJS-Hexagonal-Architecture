@@ -3,16 +3,16 @@ import { IImageMetadataDb } from '../output/image-metadata-db.repository';
 
 @Injectable()
 export class ImageMetadataService {
-  constructor (
-    @Inject("IImageMetadataDb")
-    private imageMetadataDb: IImageMetadataDb
+  constructor(
+    @Inject('IImageMetadataDb')
+    private imageMetadataDb: IImageMetadataDb,
   ) {}
 
   async createMetadata() {
     // const res = await this.imageMetadataDb.createMetadata()
     // return res.id
-    return "newid"
-  } 
+    return 'newid';
+  }
 
   async createVersion(id: string, publicUrl: string) {
     // const res = await this.imageMetadataDb.createNewVersion(

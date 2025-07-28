@@ -3,23 +3,17 @@ import { CloudinaryModule } from 'src/adapters/output/cloudinary/cloudinary.modu
 import { MongodbModule } from 'src/adapters/output/mongodb/mongodb.module';
 
 @Module({
-  imports: [
-    CloudinaryModule,
-    MongodbModule
-  ],
+  imports: [CloudinaryModule, MongodbModule],
   providers: [
     {
-      provide: "IImageStorage",
-      useExisting: "CloudinaryStorageRepository"
+      provide: 'IImageStorage',
+      useExisting: 'CloudinaryStorageRepository',
     },
     {
-      provide: "IImageMetadataDb",
-      useExisting: "MongodbRepository"
-    }
+      provide: 'IImageMetadataDb',
+      useExisting: 'MongodbRepository',
+    },
   ],
-  exports: [
-    "IImageStorage",
-    "IImageMetadataDb",
-  ]
+  exports: ['IImageStorage', 'IImageMetadataDb'],
 })
 export class InfrastructureModule {}

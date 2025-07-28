@@ -4,12 +4,10 @@ import { MongodbRepository } from './mongodb.repository';
 @Module({
   providers: [
     {
-      provide: "MongodbRepository",
-      useClass: MongodbRepository
-    }
+      provide: 'MongodbRepository',
+      useClass: MongodbRepository,
+    },
   ],
-  exports: [
-    'MongodbRepository'
-  ]
+  exports: ['MongodbRepository'],
 })
 export class MongodbModule {}

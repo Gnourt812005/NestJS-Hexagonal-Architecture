@@ -1,10 +1,10 @@
 export class ImageVersion {
-  constructor (
+  constructor(
     id: string,
-    idImage: string, 
+    idImage: string,
     versionIndex: number,
     publicUrl: string,
-    createdAt: Date, 
-    isActive: Boolean) 
-  {}
-} 
+    createdAt: Date,
+    isActive: Boolean,
+  ) {}
+}
