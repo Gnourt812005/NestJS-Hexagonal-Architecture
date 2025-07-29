@@ -1,5 +1,3 @@
-import { ImageMetadata } from '../../models/image-metadata.model';
-
 export interface IImageMetadataDb {
   createMetadata(): Promise<{ id: string }>;
   getMetadata(id: string): Promise<any>; //Promise<{metadata: ImageMetadata}>
