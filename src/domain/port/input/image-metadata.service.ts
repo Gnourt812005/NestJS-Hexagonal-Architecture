@@ -9,19 +9,20 @@ export class ImageMetadataService {
   ) {}
 
   async createMetadata() {
-    // const res = await this.imageMetadataDb.createMetadata()
-    // return res.id
-    return 'newid';
+    const res = await this.imageMetadataDb.createMetadata()
+    return res.id
   }
 
   async createVersion(id: string, publicUrl: string) {
-    // const res = await this.imageMetadataDb.createNewVersion(
-    //   id,
-    //   publicUrl
-    // )
+    const res = await this.imageMetadataDb.createNewVersion(
+      id,
+      publicUrl
+    )
+    return res 
   }
 
   async updateVersionActive(id: string, versionIndex: number) {
     const res = await this.imageMetadataDb.updateVersion(id, versionIndex);
+    return res
   }
 }

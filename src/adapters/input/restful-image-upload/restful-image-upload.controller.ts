@@ -1,7 +1,9 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -11,6 +13,7 @@ import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { randomUUID } from 'node:crypto';
 import { ImageMetadataService } from 'src/domain/port/input/image-metadata.service';
 import { ImageUploadService } from 'src/domain/port/input/image-upload.service';
+import { VersionCreate } from './dto/version.dto';
 
 @Controller()
 export class RestfulImageUploadController {
@@ -39,8 +42,8 @@ export class RestfulImageUploadController {
     }
 
     try {
-      // const id = await this.imageMetadataService.createMetadata();
-      const id = randomUUID()
+      const id = await this.imageMetadataService.createMetadata();
+      // const id = randomUUID()
       const publicUrl = await this.imageUploadService.upload(file, id);
       await this.imageMetadataService.createVersion(id, publicUrl);
 
@@ -48,5 +51,14 @@ export class RestfulImageUploadController {
     } catch (error) {
       throw new BadRequestException(`Upload failed: ${error}`);
     }
+  }
+
+  @Post("/version")
+  async createNewVersion(@Body() versionCreate: VersionCreate ) {
+    const res = await this.imageMetadataService.createVersion(
+      versionCreate.id,
+      versionCreate.publicUrl
+    )
+    return res
   }
 }
