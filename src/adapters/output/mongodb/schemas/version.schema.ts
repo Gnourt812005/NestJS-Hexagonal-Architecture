@@ -1,28 +1,28 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument, Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
-export type VersionDocument = HydratedDocument<Version>
+export type VersionDocument = HydratedDocument<Version>;
 
 @Schema()
 export class Version {
   @Prop({
-    type: Types.ObjectId, 
-    ref: "Metadata",
-    required: true  
+    type: Types.ObjectId,
+    ref: 'Metadata',
+    required: true,
   })
-  idImage: Types.ObjectId
+  idImage: Types.ObjectId;
 
   @Prop()
-  versionIndex: number
+  versionIndex: number;
 
   @Prop()
-  publicUrl: string
+  publicUrl: string;
 
   @Prop({ default: Date.now })
-  createdAt: Date
+  createdAt: Date;
 
   @Prop()
-  isActive: Boolean
+  isActive: Boolean;
 }
 
-export const VersionSchema = SchemaFactory.createForClass(Version)
+export const VersionSchema = SchemaFactory.createForClass(Version);

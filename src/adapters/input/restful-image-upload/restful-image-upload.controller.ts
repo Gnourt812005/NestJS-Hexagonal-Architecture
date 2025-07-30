@@ -9,16 +9,16 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { VersionCreate } from './dto/version.dto';
+import { VersionCreate } from './dto/version-create.dto';
 import { IImageMetadataPort } from 'src/domain/port/input/image-metadata.port';
 import { IImageUploadPort } from 'src/domain/port/input/image-upload.port';
 
-@Controller()
+@Controller('/image')
 export class RestfulImageUploadController {
   constructor(
-    @Inject("IImageMetadataPort")
+    @Inject('IImageMetadataPort')
     private imageMetadataPort: IImageMetadataPort,
-    @Inject("IImageUploadPort")
+    @Inject('IImageUploadPort')
     private imageUploadPort: IImageUploadPort,
   ) {}
 
@@ -52,12 +52,12 @@ export class RestfulImageUploadController {
     }
   }
 
-  @Post("/version")
-  async createNewVersion(@Body() versionCreate: VersionCreate ) {
+  @Post('/newversion')
+  async createNewVersion(@Body() versionCreate: VersionCreate) {
     const res = await this.imageMetadataPort.createVersion(
-      versionCreate.id,
-      versionCreate.publicUrl
-    )
-    return res
+      versionCreate.idImage,
+      versionCreate.publicUrl,
+    );
+    return res;
   }
 }

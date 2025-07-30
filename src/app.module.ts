@@ -13,19 +13,20 @@ import { TimeLoggerInterceptor } from './time-logger/time-logger.interceptor';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ".env"
+      envFilePath: '.env',
     }),
-    MyLoggerModule, 
-    InfrastructureModule, 
+    MyLoggerModule,
+    InfrastructureModule,
     RestfulImageUploadModule,
     DomainModule,
   ],
   controllers: [AppController],
   providers: [
-    AppService, {
+    AppService,
+    {
       provide: APP_INTERCEPTOR,
-      useClass: TimeLoggerInterceptor
-    }
+      useClass: TimeLoggerInterceptor,
+    },
   ],
 })
 export class AppModule {}

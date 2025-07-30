@@ -1,19 +1,19 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
-export type MetadataDocument = HydratedDocument<Metadata>
+export type MetadataDocument = HydratedDocument<Metadata>;
 
 @Schema()
 export class Metadata {
   @Prop({
-    default: Date.now 
+    default: Date.now,
   })
-  createdAt: Date
-  
+  createdAt: Date;
+
   @Prop({
-    default: true
+    default: true,
   })
-  isActive: Boolean
+  isActive: Boolean;
 }
 
-export const MetadataSchema = SchemaFactory.createForClass(Metadata)
+export const MetadataSchema = SchemaFactory.createForClass(Metadata);

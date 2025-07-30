@@ -7,14 +7,14 @@ import { ImageUploadUseCase } from './use-cases/image-upload.use-case';
   imports: [InfrastructureModule],
   providers: [
     {
-      provide: "IImageMetadataPort",
-      useClass: ImageMetadataUseCase
+      provide: 'IImageMetadataPort',
+      useClass: ImageMetadataUseCase,
     },
     {
-      provide: "IImageUploadPort",
-      useClass: ImageUploadUseCase
-    }
+      provide: 'IImageUploadPort',
+      useClass: ImageUploadUseCase,
+    },
   ],
-  exports: ["IImageMetadataPort", "IImageUploadPort"],
+  exports: ['IImageMetadataPort', 'IImageUploadPort'],
 })
 export class DomainModule {}
