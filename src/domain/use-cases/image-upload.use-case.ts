@@ -1,8 +1,9 @@
-import { BadRequestException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
-import { IImageStorage } from '../output/image-storage.repository';
+import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { IImageStorage } from '../port/output/image-storage.repository';
+import { IImageUploadPort } from '../port/input/image-upload.port';
 
 @Injectable()
-export class ImageUploadService {
+export class ImageUploadUseCase implements IImageUploadPort{
   constructor(
     @Inject('IImageStorage')
     private imageStorage: IImageStorage,
@@ -11,11 +12,9 @@ export class ImageUploadService {
   async upload(file: Express.Multer.File, fileName: string): Promise<string> {
     if (!file ) {
       throw new InternalServerErrorException('Service: File or file buffer is missing');
-    }
-    
+    }    
     const res = await this.imageStorage.upload(file, fileName)
     return res.url
-    // return 'abc.com';
   }
 
   async getUrl(key: string): Promise<string> {

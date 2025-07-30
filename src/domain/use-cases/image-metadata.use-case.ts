@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IImageMetadataDb } from '../output/image-metadata-db.repository';
+import { IImageMetadataDb } from '../port/output/image-metadata-db.repository';
+import { IImageMetadataPort } from '../port/input/image-metadata.port';
 
 @Injectable()
-export class ImageMetadataService {
+export class ImageMetadataUseCase implements IImageMetadataPort{
   constructor(
     @Inject('IImageMetadataDb')
     private imageMetadataDb: IImageMetadataDb,

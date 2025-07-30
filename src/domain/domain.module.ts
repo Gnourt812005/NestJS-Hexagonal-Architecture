@@ -1,11 +1,20 @@
 import { Module } from '@nestjs/common';
-import { ImageUploadService } from './port/input/image-upload.service';
-import { ImageMetadataService } from './port/input/image-metadata.service';
 import { InfrastructureModule } from 'src/infrastructure/infrastructure.module';
+import { ImageMetadataUseCase } from './use-cases/image-metadata.use-case';
+import { ImageUploadUseCase } from './use-cases/image-upload.use-case';
 
 @Module({
   imports: [InfrastructureModule],
-  providers: [ImageUploadService, ImageMetadataService],
-  exports: [ImageUploadService, ImageMetadataService],
+  providers: [
+    {
+      provide: "IImageMetadataPort",
+      useClass: ImageMetadataUseCase
+    },
+    {
+      provide: "IImageUploadPort",
+      useClass: ImageUploadUseCase
+    }
+  ],
+  exports: ["IImageMetadataPort", "IImageUploadPort"],
 })
 export class DomainModule {}

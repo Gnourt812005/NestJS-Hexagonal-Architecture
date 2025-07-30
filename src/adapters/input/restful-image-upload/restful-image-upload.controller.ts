@@ -2,24 +2,24 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Get,
-  Param,
+  Inject,
   Post,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import { randomUUID } from 'node:crypto';
-import { ImageMetadataService } from 'src/domain/port/input/image-metadata.service';
-import { ImageUploadService } from 'src/domain/port/input/image-upload.service';
 import { VersionCreate } from './dto/version.dto';
+import { IImageMetadataPort } from 'src/domain/port/input/image-metadata.port';
+import { IImageUploadPort } from 'src/domain/port/input/image-upload.port';
 
 @Controller()
 export class RestfulImageUploadController {
   constructor(
-    private imageMetadataService: ImageMetadataService,
-    private imageUploadService: ImageUploadService,
+    @Inject("IImageMetadataPort")
+    private imageMetadataPort: IImageMetadataPort,
+    @Inject("IImageUploadPort")
+    private imageUploadPort: IImageUploadPort,
   ) {}
 
   @Post('/upload')
@@ -42,10 +42,9 @@ export class RestfulImageUploadController {
     }
 
     try {
-      const id = await this.imageMetadataService.createMetadata();
-      // const id = randomUUID()
-      const publicUrl = await this.imageUploadService.upload(file, id);
-      await this.imageMetadataService.createVersion(id, publicUrl);
+      const id = await this.imageMetadataPort.createMetadata();
+      const publicUrl = await this.imageUploadPort.upload(file, id);
+      await this.imageMetadataPort.createVersion(id, publicUrl);
 
       return { id: id, publicUrl: publicUrl };
     } catch (error) {
@@ -55,7 +54,7 @@ export class RestfulImageUploadController {
 
   @Post("/version")
   async createNewVersion(@Body() versionCreate: VersionCreate ) {
-    const res = await this.imageMetadataService.createVersion(
+    const res = await this.imageMetadataPort.createVersion(
       versionCreate.id,
       versionCreate.publicUrl
     )
