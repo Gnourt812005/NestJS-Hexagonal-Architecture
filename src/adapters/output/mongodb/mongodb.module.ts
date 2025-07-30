@@ -3,13 +3,17 @@ import { MongodbRepository } from './mongodb.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Metadata, MetadataSchema } from './schemas/metadata.schema';
 import { Version, VersionSchema } from './schemas/version.schema';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      (process.env.MONGODB_URI as string) ||
-        'mongodb+srv://txt812005:todolist@db-todolist.4enkypn.mongodb.net/image?retryWrites=true&w=majority&appName=db-todolist',
-    ),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     MongooseModule.forFeature([
       { name: Metadata.name, schema: MetadataSchema },
       { name: Version.name, schema: VersionSchema },
