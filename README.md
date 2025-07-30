@@ -74,6 +74,8 @@ src/
 - **Inbound Adapters**: Controllers, CLI, etc.
 - **Outbound Adapters**: Databases, APIs, File systems, etc.
 
+In NestJS, we should implement adapters as modules for applying Dependency Injection.
+
 ### 3. **Infrastructure Layer** (Wiring)
 - Dependency injection configuration
 - Module registration and exports
